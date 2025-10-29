@@ -1,0 +1,170 @@
+    :root{
+      /* change this to adjust card background color and transparency */
+      --card-bg: rgba(255,255,255,0.12); /* white with 12% opacity */
+      --card-border: rgba(255,255,255,0.18);
+      --text-color: #ffffff;
+      --muted: rgba(255,255,255,0.7);
+      --radius: 12px;
+      --shadow: 0 6px 18px rgba(0,0,0,0.25);
+      --max-width: 320px;
+    }
+
+    /* grid to demonstrate multiple cards (optional) */
+    .grid {
+      display:grid;
+      gap:8px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      width:100%;
+      max-width:980px;
+    }
+
+    .product-card
+	{
+		max-width:var(--max-width);
+		width:15vw;
+		height:21vw;
+		background: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,0.01));
+		/* outer overlay with transparent color */
+		position:relative;
+		border-radius:var(--radius);
+		overflow:hidden;
+		box-shadow:var(--shadow);
+		transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+	.quantity
+	{
+		position:absolute;
+		top:-2vw;
+		left: 0.5vw;
+		background: rgb(0, 0, 0);
+		background: rgba(0, 0, 0, 0.5); /* Black see-through */
+		font-size:0.8rem;
+		color: #f1f1f1; 
+		opacity: 0;
+		transition: .6s ease;
+		text-align: center;
+		opacity: 1;
+		font-size: clamp(0.7rem, 2vw, 4rem);
+		font-weight:600;
+	}
+    .prod-image
+	{
+		width:10vw;
+		height:auto;
+		margin-left:1.5vw;
+		margin-top:3vw;
+	}
+    .cart
+	{
+		width:11vw;
+		height:auto;
+		margin-left:0.2vw;
+		margin-top:2.5vw;
+	}
+	.plus 
+	{
+		position:absolute;
+		width:3vw;
+		height:3vw;
+		top: 0.2vw;
+		margin-left:0.3vw;
+		color: #f1f1f1; 
+		transition: .6s ease;
+		text-align: center;
+		opacity: 1;
+	}
+	.minus 
+	{
+		position:absolute;
+		width:3vw;
+		height:3vw;
+		top: 3.55vw;
+		margin-left:0.3vw;
+		color: #f1f1f1; 
+		transition: .6s ease;
+		text-align: center;
+		opacity: 1;
+	}
+	.remove
+	{
+		position:absolute;
+		width:3vw;
+		height:3vw;
+		top: 7vw;
+		margin-left:0.3vw;
+		color: #f1f1f1; 
+		transition: .6s ease;
+		text-align: center;
+		opacity: 1;
+	}
+    .productname
+	{
+		position:relative;
+		background: rgba(0, 0, 0, 0.5); /* Black see-through */
+		color: #f1f1f1; 
+		transition: .6s ease;
+		text-align: center;
+		opacity: 1;
+		font-size: clamp(0.5rem, 2.3vw, 3rem);
+		font-weight:600;
+		margin-top:-1vw;
+	}
+    .productprice
+	{
+		position:relative;
+		background: rgba(0, 0, 0, 0.5); /* Black see-through */
+		color: #f1f1f1; 
+		transition: .6s ease;
+		text-align: center;
+		opacity: 1;
+		font-size: clamp(0.5rem, 2.7vw, 3.2rem);
+		font-weight:700;
+		margin-top:-1.1vw;
+	}
+    /* the transparent colored bar behind content */
+    .product-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: var(--card-bg); /* <--- transparent background here */
+      mix-blend-mode: normal;
+    }
+
+    .media{
+      display:block;
+      width:100%;
+      height:0;
+      padding-bottom:75%; /* aspect ratio 4:3; change as needed */
+      position:relative;
+      background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.08));
+    }
+
+    .media img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .content{
+      position:relative; /* above ::after overlay */
+      z-index:1;
+      color:var(--text-color);
+      text-align:center;
+      backdrop-filter: blur(4px); /* subtle blur if supported */
+	  margin:0 0 0px;
+    }
+
+    /* hover/active */
+    .product-card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 14px 36px rgba(2,6,23,0.6);
+    }
+
+    /* responsive tweaks */
+    @media (max-width:420px){
+      :root{ --max-width: 100%; }
+    }

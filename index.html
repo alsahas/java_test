@@ -1,7 +1,268 @@
-<html>
+<!DOCTYPE html>
+<html lang="ar">
 <head>
+<link href='https://fonts.googleapis.com/css?family=Noto Naskh Arabic' rel='stylesheet'>
+
+<link rel="stylesheet" href="card-style.css">
+<link rel="stylesheet" href="modelstyle.css">
+<link rel="stylesheet" href="mystyle.css">
+<script type="text/javascript" src="myscript.js"></script> 
+<script defer src="modelscript.js"></script>
+
 </head>
-<body onload="window.close();">
-	<h1>ÿ™ŸÖ ÿ•ÿ±ÿ≥ÿßŸÑ SMS</h1>
+<body onload="checkMaintenance();">
+<!-- Simulate a smartphone / tablet look -->
+<div id="maintenance"style="display:none;">
+	<h1 style="background-color:DodgerBlue;">⁄–—«" „Êﬁ⁄ œﬂ«‰… «·”«Õ… „€·ﬁ Õ«·Ì«"... ‰—ÃÊ “Ì«— ‰« ·«Õﬁ«" </h1>
+	<h1 style="background-color:DodgerBlue;">SORRY !!! ALSAHA&nbsp;SHOP&nbsp;Website is Currently Closed... Visit Us Later</h1>
+</div>
+<div id="main"class="mobile-container">
+<!-- Top Navigation Menu -->
+<div id="topnav"class="topnav">
+	<!-- search -->
+	<img src="png/searchempty.png"width="350px"height="50px"style="position:fixed;top:10px;left:10px">
+	<input id="inputsearch" type="text" size="50px"onkeyup="distributeAll()"
+	style="font-family:Sakkal Majalla;font-size:25px;position:fixed;width:283px;height:32px;top:19px;left:22px;">
+	<label id="numberitems"style="font-size:40px;color:white;"></label>
+	<img onmouseover="changeImage2()"onmouseout="changeImage1()"data-modal-target="#modal"class="form"id="form"type="submit"
+	style="position:absolute;width:5vw;height:3vw;top:55;left:170px;display:none;" src="png/deliver.png">
+	<div>
+		<a style="height:15%;background-color: #54ccc0;"id="My CART"class="active" onclick="distributeMyCart();" href="javascript:void(0);">
+			<img src="png/logo.png"style="width:8vw;"><br> 
+			<span style="line-height:70%;color:white;font-size:1.5vw;font-weight:bold"id="total">Bill: 0 L.L.</span><br>
+			<span style="line-height:70%;color:red;font-size:1.5vw;font-weight:bold">+50,000 Delivery</span><br style="marin:1px;">
+			<span style="line-height:70%;color:green;font-size:2.5vw;font-weight:bold"><b id="total2"> = 50,000 L.L.</b>
+		</a>
+	</div>
+	<ul class="category">
+		<li><a href="#product" class="active">”ﬂ«ﬂ—</a></li>
+		<li><a href="#product">»“Ê—« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">„‘—Ê»« </a></li>
+		<li><a href="#product">222„‘—Ê»« </a></li>
+	</ul>
+</div>
+
+<div id="page" class="page">
+
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+<article class="product-card">
+		<img class="prod-image"width="100"height="100"src="1.png">
+		<img class="cart" src="png/cart2.png">
+		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantity"class="quantity">100</p>
+		<p id="productname"class="productname">name</p>
+		<p id="productprice"class="productprice">150,000,000 L.L.</p>
+</article>
+
+</div>	
+<p style="display:none;"></p>
+</div>
+<!-- End smartphone / tablet look -->
+<form name="form2"lang="ar" action="https://formspree.io/f/xjkbyvpd"method="POST">
+    <input type="email" name="email"value="strategyquant12@gmail.com"style="display:none;">
+	<input type="subject"id="subject" name="subject"value=""style="display:none;">
+    <textarea id="message" name="message"value=""style="display:none;"></textarea>
+</form>	
+<p id="customername"style="display:none;"></p>
+<p id="phonenumber"style="display:none;"></p>
+<p id="address"style="display:none;"></p>
 </body>
+<div class="modal" id="modal">
+	<div class="modal-header">
+		<div style="position:absolute;right:40%;"class="title"> ”ÃÌ·  ›«’Ì· «· Ê’Ì·</div>
+		<button data-close-button class="close-button">&times;</button>
+	</div>
+	<div style="float:right;"class="modal-body">
+		<h3 style="font-size:1rem;">
+			<input id="name"type="text"name="name"onblur="checkGoodName(name);checkSubmit();"style="font-size:1rem;width:60%;height:35px;">
+			&nbsp;&nbsp;«·≈”„ «·ﬂ«„·
+		</h3>
+		<h3 style="font-size:1rem;">
+			<input id="phone1"type="text"name="phone1"onblur="checkGood1();checkSubmit();"onfocus="emptyPhone1()"onkeyup="checkPhone1();"
+			style="font-size:1rem;width:20%;height:35px;">
+			&nbsp;/
+			<input id="phone2"type="text"name="phone2"onblur="checkGood2();checkSubmit();"onclick="checkPhone();"onfocus="emptyPhone2();"onkeyup="checkPhone2();"
+			style="font-size:1rem;width:36.5%;height:35px;">
+			&nbsp;&nbsp;—ﬁ„ «· ·›Ê‰
+		</h3>
+		<h3 style="font-size:1rem;">
+			<input id="address2"type="text"name="address2"onblur="checkGoodName('address2');"onkeyup="checkSubmit();"style="font-size:1rem;width:60%;height:35px;">
+			&nbsp;&nbsp;«·⁄‰Ê«‰
+		</h3>
+		<button onclick="setValue();getValue();document.form2.submit();"id="button1"style="font-size:25px;position:relative;left:25%;">BUY-‘—«¡</button>
+	</div>
+</div>
+<div id="modeloverlay"></div>
 </html>

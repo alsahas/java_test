@@ -1,0 +1,133 @@
+@media screen and (min-width: 240px) 
+{
+	body 
+	{
+		font-family:Sakkal Majalla;
+		font-size: 3.2vw;
+		background-image: url('png/background.png');
+		background-repeat:  repeat;
+		background-attachment:fixed;
+		background-size: 100% 100%;
+		width: 95vw;
+		height: 95vh;
+	}
+
+	div#main 
+	{
+		font-size: 3vw;
+	}
+}
+div#details
+{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:left;
+	margin-left:-40px;
+	margin-right:-10px;
+}
+.cart
+{
+	position:absolute;
+	top: 0;
+	left: 0;
+}
+.mobile-container 
+{
+  max-width: auto;
+  margin: auto;
+  background-color: transparent;
+  height: auto;
+  color: black;
+  border-radius: 10px;
+}
+.topnav 
+{	
+	position: fixed;
+	top:1vw;
+	right: 0px;
+	z-index:2;
+	overflow: hidden;
+	background-color: #333;
+	width:14%;
+	height:100%;
+	border-radius:1vw;
+}
+.category 
+{
+	font-family: Sakkal Majalla;
+	direction: rtl;
+	text-align: center;
+	width: fit-content;
+	display: inline-block;
+	border-radius: 20px;
+	margin: 3px;
+    padding: 0px; /* Removes default padding */
+	font-size: clamp(0.5rem, 2.3vw, 3rem);
+	max-height: 67%; /* Adjust this value as needed */
+	overflow-y: auto;
+}
+
+.page
+{
+	position:absolute;
+	top:60px;
+	padding-left:16px;
+	display: flex;
+	gap: 15px;
+	flex-wrap: wrap;
+	width: 85%;
+	height: auto;
+}
+.container
+{
+	position:relative;
+	width:auto;
+	height:auto;
+}
+a:link 
+{
+	text-decoration: none;
+}
+.topnav div a.active
+{
+  float: left;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav a.icon 
+{
+  float: right;
+}
+.topnav a:hover 
+{
+  background-color: #ddd;
+  color: black;
+}
+.category li a {
+  color: #232d39!important;
+	border-radius: 5px;
+}
+
+.category li:hover a {
+  color: #ed563b!important;
+	border-radius:5px;
+}
+
+.category li a.active {
+  color: #ed563b!important;
+	border-radius: 10px;
+}
+
+.category li
+{
+    display: inline-block;
+	background-color: #ccc;
+	border-radius: 0.5vw;
+	border: 2px outset orange;
+    margin-right: 10px; /* Adds spacing between list items */
+	font-size: clamp(0.5rem, 2.3vw, 3rem);
+	margin-bottom: 10px;
+}

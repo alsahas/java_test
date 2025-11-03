@@ -140,6 +140,6 @@ a:link
 	border-radius: 0.5vw;
 	border: 2px outset orange;
     margin-right: 10px; /* Adds spacing between list items */
-	font-size: clamp(0.5rem, 2.3vw, 3rem);
-	margin-bottom: 10px;
+	font-size: clamp(0.5rem, 4vh, 3rem);
+	margin-bottom: 5px;
 }

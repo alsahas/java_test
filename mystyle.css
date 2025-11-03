@@ -26,6 +26,18 @@ div#details
 	margin-left:-40px;
 	margin-right:-10px;
 }
+.imagecart:hover 
+{
+	content: url('./png/cart4.png');
+	cursor: pointer;
+}
+.imagecart 
+{
+	width:8vw;
+	margin-left:8vw;
+	margin-right:8vwpx;
+	margin-top:10px;
+}
 .cart
 {
 	position:absolute;
@@ -45,13 +57,13 @@ div#details
 {	
 	position: fixed;
 	top:1vw;
-	right: 0px;
+	right: 4px;
 	z-index:2;
 	overflow: hidden;
 	background-color: #333;
-	width:14%;
+	width:25%;
 	height:100%;
-	border-radius:1vw;
+	border-radius:0.5vw;
 }
 .category 
 {
@@ -60,11 +72,11 @@ div#details
 	text-align: center;
 	width: fit-content;
 	display: inline-block;
-	border-radius: 20px;
+	border-radius: 2vw;
 	margin: 3px;
     padding: 0px; /* Removes default padding */
 	font-size: clamp(0.5rem, 2.3vw, 3rem);
-	max-height: 67%; /* Adjust this value as needed */
+	max-height: 70%; /* Adjust this value as needed */
 	overflow-y: auto;
 }
 
@@ -76,7 +88,7 @@ div#details
 	display: flex;
 	gap: 15px;
 	flex-wrap: wrap;
-	width: 85%;
+	width: 80%;
 	height: auto;
 }
 .container

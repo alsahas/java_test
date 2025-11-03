@@ -88,7 +88,7 @@ function isArabicDigit(chr)
 	var arabic = /[\u0660-\u0669]/;
 	return(arabic.test(chr));
 }
-nfunction disableButton()
+function disableButton()
 {
 	document.getElementById("button1").disabled = true;
 }

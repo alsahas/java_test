@@ -105,7 +105,7 @@
 		transition: .6s ease;
 		text-align: center;
 		opacity: 1;
-		font-size: clamp(0.5rem, 2.3vw, 3rem);
+		font-size: clamp(0.5rem, 2vw, 3rem);
 		font-weight:600;
 		margin-top:-1vw;
 	}
@@ -167,4 +167,5 @@
     /* responsive tweaks */
     @media (max-width:420px){
       :root{ --max-width: 100%; }
+
     }

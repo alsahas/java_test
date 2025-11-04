@@ -14,9 +14,12 @@
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+	const app = initializeApp(firebaseConfig);
+	import {getDatabase, set, get,update,remove,ref,child,onValue}
+	from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+	const db=getDatabase();
+	const dbref=ref(db);
 
-  
 function loadCategories()
 {
 	var topnav=document.getElementById("category");
@@ -25,6 +28,7 @@ function loadCategories()
 		topnav.innerHTML="";
 		get(child(dbref,"categories")).then((snapshot) => 
 		{
+console.log("pkk");
 			if (snapshot.exists()) 
 			{
 				const data = snapshot.val();
@@ -55,3 +59,4 @@ function loadCategories()
 		});
 	}
 }
+document.addEventListener('DOMContentLoaded',loadCategories);

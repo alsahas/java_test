@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="card-style.css">
 <link rel="stylesheet" href="modelstyle.css">
 <link rel="stylesheet" href="mystyle.css">
-<script type="text/javascript" src="myscript.js"></script> 
+<script type="text/javascript"src="myscript.js"></script> 
+<script type="module" src="database.js"></script> 
 <script defer src="modelscript.js"></script>
 
 </head>
@@ -28,7 +29,7 @@
 	style="position:absolute;width:5vw;height:3vw;top:55;left:170px;display:none;" src="png/deliver.png">
 	<div style="background-color: #54ccc0;">
 			<img src="png/logo3.png"style="width:10vw;margin-left:7vw;margin-top:1vw;"><br> 
-			<b>TOTAL =</b><span style="line-height:70%;color:green;font-size:2.5vw;font-weight:bold"><b id="total2"> 10,500,000 L.L.</b>
+			<b>TOTAL =</b><span style="line-height:70%;color:green;font-size:2.5vw;font-weight:bold"><b id="total"> 10,500,000 L.L.</b>
 	</div>
 		<img onclick="distributeMyCart();"class="imagecart" src="png/cart3.png" alt="Cart icon">
 	<ul class="category">
@@ -53,22 +54,22 @@
 <div id="page" class="page">
 
 <article class="product-card">
-		<img class="prod-image"width="100"height="100"src="png/products/0.png">
-		<img class="cart" src="png/cart2.png">
-		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
-		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
-		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
-		<p id="quantity"class="quantity">100</p>
+		<a href="javascript:addProductToCart('1','name',10000,true);"><img class="prod-image"width="100"height="100"src="png/products/1.png"></a>
+		<a href="javascript:addProductToCart('1','name',10000,true);"><img id="cartname"class="cart" style="display:none"src="png/cart2.png"></a>
+		<a href="javascript:plus('1','name',10000,true);"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:minus('name');"><img class="minus" src="png/minus.png"></a>
+		<a href="javascript:remove('name');"><img class="remove" src="png/delete.png"></a>
+		<p id="quantityname"class="quantity">0</p>
 		<p id="productname"class="productname">name</p>
 		<p id="productprice"class="productprice">150,000,000 L.L.</p>
 </article>
 <article class="product-card">
 		<img class="prod-image"width="100"height="100"src="png/products/1.png">
 		<img class="cart" src="png/cart2.png">
-		<a href="javascript:plus('1');"><img class="plus" src="png/plus.png"></a>
+		<a href="javascript:plus2('2');"><img class="plus" src="png/plus.png"></a>
 		<a href="javascript:minus('1');"><img class="minus" src="png/minus.png"></a>
 		<a href="javascript:remove('1');"><img class="remove" src="png/delete.png"></a>
-		<p id="quantity"class="quantity">100</p>
+		<p id="quantity"class="quantity">66</p>
 		<p id="productname"class="productname">name</p>
 		<p id="productprice"class="productprice">150,000,000 L.L.</p>
 </article>

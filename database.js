@@ -19,6 +19,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
 		
 function loadCategories()
 {
+	if(localStorage.getItem('counter')==null)addCounter();;
 	var topnav=document.getElementById("category");
 	if(topnav!=null)
 	{
@@ -160,34 +161,37 @@ export function distributeAll()
 }
 function distributeMyCart()
 {
-	saveCategory("");
-	loadDictionary();
-	document.getElementById("mycart").src ="png/cart4.png";
-	document.getElementById('numberitems').innerHTML="";
-	var inner="";
-	var inners="";
-	var im="0";
-	var price="";
-	var quantity=0;
-	var display="none";
-	var page=document.getElementById("page");
-	if(page!=null)
+	if(mycart!=null)
 	{
-		for (let i = 0; i < mycart.length; i++) 
+		saveCategory("");
+		loadDictionary();
+		document.getElementById("mycart").src ="png/cart4.png";
+		document.getElementById('numberitems').innerHTML="";
+		var inner="";
+		var inners="";
+		var im="0";
+		var price="";
+		var quantity=0;
+		var display="none";
+		var page=document.getElementById("page");
+		if(page!=null&&mycart!=null)
 		{
-			const item= mycart[i];
-			
-			if(item.pngExist>0)im=""+item.id;
-			else im="0";
-			if(item.price>=1000)price=numberComma(item.price)+" L.L.";
-			else price=item.price+" $";
-			quantity=getItemQuantity(item.name);
-			if(quantity>0)display="block";
-			else display="none";
-			inner="<article class=\"product-card\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"><a href=\"javascript:plus2('"+item.id+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus2('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a  href=\"javascript:remove2('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\">"+item.name+"</p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
-			inners+=inner;
+			for (let i = 0; i < mycart.length; i++) 
+			{
+				const item= mycart[i];
+				
+				if(item.pngExist>0)im=""+item.id;
+				else im="0";
+				if(item.price>=1000)price=numberComma(item.price)+" L.L.";
+				else price=item.price+" $";
+				quantity=getItemQuantity(item.name);
+				if(quantity>0)display="block";
+				else display="none";
+				inner="<article class=\"product-card\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"><a href=\"javascript:plus2('"+item.id+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus2('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a  href=\"javascript:remove2('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\">"+item.name+"</p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
+				inners+=inner;
+			}
+			page.innerHTML=inners;
 		}
-		page.innerHTML=inners;
 	}
 }
 function saveCategory(cat)
@@ -197,12 +201,55 @@ function saveCategory(cat)
 function loadCategory()
 {
 	let lastcat=localStorage.getItem('lastcat');
-	if(lastcat.length>0)distribute(lastcat);
+	if(lastcat!=null&&lastcat.length>0)distribute(lastcat);
 	else 
 	{
 		distributeMyCart();
 	}	
 }
+function addCounter() 
+{
+	get(child(dbref,"counter")).then((snapshot) => 
+	{
+		if (snapshot.exists()) 
+		{
+			const data = snapshot.val();
+			const keys = Object.keys(data);
+			const key = keys[0];
+			const item = data[key];
+			var idd=parseInt(item.id);
+			set(ref(db,'counter/1'),{id:""+(idd+1)});
+			localStorage.setItem('counter',(idd+1));
+			return (idd+1);
+		} else {
+			console.log("No data available");
+		}
+	}).catch((error) => 
+	{
+		console.error(error);
+	});
+	
+}
+function getCounter()
+{
+	get(child(dbref,"counter")).then((snapshot) => 
+	{
+		if (snapshot.exists()) 
+		{
+			const data = snapshot.val();
+			const keys = Object.keys(data);
+			const key = keys[0];
+			const item = data[key];
+			return item.id;
+			console.log("counter:"+item.id);
+		} else {
+			console.log("No data available");
+		}
+	}).catch((error) => 
+	{
+		console.error(error);
+	});
+}		
 function deliverDatabase()
 {
 	if(checkForm())
@@ -219,7 +266,8 @@ function deliverDatabase()
 			const product = mycart[i];
 			cartList+=product.id+":"+product.quantity+";";
 		}
-		set(ref(db,'requests/1'),{fullname:removeSpecialChars(name.value),phone:removeSpecialChars(phone.value),address:removeSpecialChars(address.value),cart:cartList,total:updateTotal()});
+		addCounter();
+		set(ref(db,'requests/'+localStorage.getItem('counter')),{fullname:removeSpecialChars(name.value),phone:removeSpecialChars(phone.value),address:removeSpecialChars(address.value),cart:cartList,total:updateTotal()});
 		emptyMyCart();
 		hideForm();
 		let lastcat=localStorage.getItem('lastcat');

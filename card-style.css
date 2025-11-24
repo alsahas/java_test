@@ -167,5 +167,4 @@
     /* responsive tweaks */
     @media (max-width:420px){
       :root{ --max-width: 100%; }
-
     }

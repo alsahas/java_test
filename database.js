@@ -11,15 +11,43 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
 	    appId: "1:620364206298:web:bb9a99e5e60e4be3dad5e3"
 	};
 	const app = initializeApp(firebaseConfig);
-	import {getDatabase, set, get,update,remove,ref,child,onValue}
+	import {getDatabase, set, get,update,remove,ref,runTransaction,child,onValue}
 	from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
 
 	const db=getDatabase();
 	const dbref=ref(db);
-		
+	const counterRef = ref(db, 'globalCounter');
+	
+	onValue(counterRef, (snapshot) => 
+	{
+	    const likeCount = snapshot.val();
+		globalThis.id=likeCount;
+	    console.log("Current like count:"+globalThis.id);
+	});
+	
+function incrementCounter() 
+{
+	runTransaction(counterRef, (currentCounter) => 
+	{
+		// If the counter doesn't exist, initialize it to 0 before incrementing
+		if (currentCounter === null) 
+		{
+			return 1;
+		}
+		// Increment the counter
+		return currentCounter + 1;
+	})
+	.then(() => 
+	{
+		console.log("Counter incremented successfully!");
+	})
+	.catch((error) => 
+	{
+		console.error("Error incrementing counter:", error);
+	});
+}
 function loadCategories()
 {
-	if(localStorage.getItem('counter')==null)addCounter();;
 	var topnav=document.getElementById("category");
 	if(topnav!=null)
 	{
@@ -207,49 +235,6 @@ function loadCategory()
 		distributeMyCart();
 	}	
 }
-function addCounter() 
-{
-	get(child(dbref,"counter")).then((snapshot) => 
-	{
-		if (snapshot.exists()) 
-		{
-			const data = snapshot.val();
-			const keys = Object.keys(data);
-			const key = keys[0];
-			const item = data[key];
-			var idd=parseInt(item.id);
-			set(ref(db,'counter/1'),{id:""+(idd+1)});
-			localStorage.setItem('counter',(idd+1));
-			return (idd+1);
-		} else {
-			console.log("No data available");
-		}
-	}).catch((error) => 
-	{
-		console.error(error);
-	});
-	
-}
-function getCounter()
-{
-	get(child(dbref,"counter")).then((snapshot) => 
-	{
-		if (snapshot.exists()) 
-		{
-			const data = snapshot.val();
-			const keys = Object.keys(data);
-			const key = keys[0];
-			const item = data[key];
-			return item.id;
-			console.log("counter:"+item.id);
-		} else {
-			console.log("No data available");
-		}
-	}).catch((error) => 
-	{
-		console.error(error);
-	});
-}		
 function deliverDatabase()
 {
 	if(checkForm())
@@ -266,8 +251,8 @@ function deliverDatabase()
 			const product = mycart[i];
 			cartList+=product.id+":"+product.quantity+";";
 		}
-		addCounter();
-		set(ref(db,'requests/'+localStorage.getItem('counter')),{fullname:removeSpecialChars(name.value),phone:removeSpecialChars(phone.value),address:removeSpecialChars(address.value),cart:cartList,total:updateTotal()});
+		incrementCounter();
+		set(ref(db,'requests/'+globalThis.id),{fullname:removeSpecialChars(name.value),phone:removeSpecialChars(phone.value),address:removeSpecialChars(address.value),cart:cartList,total:updateTotal()});
 		emptyMyCart();
 		hideForm();
 		let lastcat=localStorage.getItem('lastcat');

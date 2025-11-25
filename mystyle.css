@@ -26,12 +26,62 @@ div#details
 	margin-left:-40px;
 	margin-right:-10px;
 }
+.empty-request 
+{
+	font-size:clamp(0.4rem, 2vw, 2rem);
+	width:5vw;
+	height:4vw;
+	position:relative;
+	top:0vw;
+	left:5vw;
+	border: none;
+	color: rgb(255, 255, 255);
+	background: #111;
+	cursor: pointer;
+	position: relative;
+	z-index: 0;
+	border-radius:3vw;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+.driver-login 
+{
+	position:fixed;
+	top: 0vh;
+	right: 0vw;
+	align-items: center;
+	background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+	border: 0;
+	border-radius: 1vw;
+	color: #FFFFFF;
+	font-family: Times New Roman, sans-serif;
+	font-size:clamp(0.4rem, 1.5vw, 2rem);
+	width: 14vw;
+	height:4vw;
+	text-decoration: none;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	white-space: nowrap;
+	cursor: pointer;
+	z-index: 9999999999;
+}
+
+.driver-login:active,
+.driver-login:hover 
+{
+	color:green;
+	font-weight:800;
+	outline: 0;
+}
 .message-label 
 {
 	background-color: #4CAF50; /* Green background for success */
 	color: white;
 	font-size: 0.7em;
-	border-radius: 10px;
+	border-radius: 10vw;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	opacity: 1;
 	transition: opacity 1s ease-out; /* Smooth transition for fading */
@@ -45,8 +95,26 @@ div#details
 .message-label.hidden 
 {
 	opacity: 0;
-	/* Optionally, you can also use display: none after the transition */
-	/* transition-delay: 1s; */
+}
+.message-label2
+{
+	background-color: #ED1C24; /* Green background for success */
+	color: white;
+	font-size: 0.7em;
+	border-radius: 5vw;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	opacity: 1;
+	transition: opacity 1s ease-out; /* Smooth transition for fading */
+	text-align: center;
+	position: fixed; /* Essential: Positions the element relative to the browser window */
+	top: 1vw;
+	right: 8vw;
+	z-index: 9999999999;
+	display:none;
+}
+.message-label2.hidden 
+{
+	opacity: 0;
 }
 
 .imagecart:hover 
@@ -104,7 +172,13 @@ div#details
 	margin-left:13vw;
 	margin-top:2vw;
 }
-.form-popup {
+.logo2
+{
+	width:10vw;
+	margin-top:4vw;
+}
+.form-popup 
+{
   display: none;
   position: fixed;
   top: 1vw;

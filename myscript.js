@@ -12,10 +12,22 @@ function showForm()
 	if(checkForm())document.getElementById("login_form").className="btn";
 	else document.getElementById("login_form").className="btn2";
 }
+function showForm2()
+{
+	document.getElementById("myForm").style.display="block";
+	document.getElementById("username").value=localStorage.getItem('username');
+	document.getElementById("password").value=localStorage.getItem('password');
+	if(checkForm2())document.getElementById("login_form").className="btn";
+	else document.getElementById("login_form").className="btn2";
+}
 function hideForm()
 {
 	document.getElementById("myForm").style.display="none";
-	//document.getElementById("login_form").className="btn";
+}
+function hideForm()
+{
+	document.getElementById("myForm").style.display="none";
+	document.getElementById("driver-login").style.display="block";
 }
 function checkForm()
 {
@@ -23,6 +35,21 @@ function checkForm()
 	var phone=document.getElementById("phone");
 	var address=document.getElementById("address");
 	if(name.value.length>0&&phone.value.length>0&&address.value.length>0)
+	{
+		document.getElementById("login_form").className="btn";
+		return true;
+	}
+	else
+	{
+		document.getElementById("login_form").className="btn2";
+		return false;
+	}	
+}
+function checkForm2()
+{
+	var username=document.getElementById("username");
+	var password=document.getElementById("password");
+	if(username.value.length>0&&password.value.length>0)
 	{
 		document.getElementById("login_form").className="btn";
 		return true;

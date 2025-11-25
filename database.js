@@ -22,24 +22,32 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
 	{
 	    const likeCount = snapshot.val();
 		globalThis.id=likeCount;
-	    console.log("Current like count:"+globalThis.id);
 	});
-	
+function getNow()
+{
+	const today = new Date();
+	const year = today.getFullYear();
+	const month = today.getMonth() + 1; // Add 1 because months are 0-indexed
+	const day = today.getDate();
+	const hour = today.getHours();
+	const minute = today.getMinutes();
+	const second = today.getSeconds();
+	//console.log(year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second);
+	return year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+}
 function incrementCounter() 
 {
 	runTransaction(counterRef, (currentCounter) => 
 	{
-		// If the counter doesn't exist, initialize it to 0 before incrementing
 		if (currentCounter === null) 
 		{
 			return 1;
 		}
-		// Increment the counter
 		return currentCounter + 1;
 	})
 	.then(() => 
 	{
-		console.log("Counter incremented successfully!");
+		//console.log("Counter incremented successfully!");
 	})
 	.catch((error) => 
 	{
@@ -252,7 +260,7 @@ function deliverDatabase()
 			cartList+=product.id+":"+product.quantity+";";
 		}
 		incrementCounter();
-		set(ref(db,'requests/'+globalThis.id),{fullname:removeSpecialChars(name.value),phone:removeSpecialChars(phone.value),address:removeSpecialChars(address.value),cart:cartList,total:updateTotal()});
+		set(ref(db,'requests/'+globalThis.id),{fullname:removeSpecialChars(name.value),phone:removeSpecialChars(phone.value),address:removeSpecialChars(address.value),cart:cartList,total:updateTotal(),date:getNow(),driver:"-",state:"0"});
 		emptyMyCart();
 		hideForm();
 		let lastcat=localStorage.getItem('lastcat');

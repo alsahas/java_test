@@ -13,10 +13,28 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
 	const app = initializeApp(firebaseConfig);
 	import {getDatabase, set, get,update,remove,ref,runTransaction,child,onValue}
 	from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
-
 	const db=getDatabase();
 	const dbref=ref(db);
 	
+async function updateRequestState(requestid,newState) 
+{
+	const targetPath = "requests/"+requestid;
+	const updates = 
+	{
+		state: newState
+	};
+
+	try 
+	{
+		await update(ref(db, targetPath), updates);
+		console.log("State successfully updated in Realtime Database.");
+	} 
+	catch (error) 
+	{
+		console.error("Error updating state: ", error);
+	}
+}
+
 function getNow()
 {
 	const today = new Date();
@@ -37,6 +55,7 @@ function saveDriver(drivername,user,pass)
 }
 function loadRequests()
 {
+	localStorage.setItem('request',"");
 	var empty=document.getElementById("empty-request");
 	var request_section=document.getElementById("request_section");
 	var found=false;
@@ -83,46 +102,75 @@ function loadRequests()
 		});
 	}
 }
-function distribute(cat)
+function loadCart(serie)
 {
-	saveCategory(cat);
-	document.getElementById("mycart").src ="png/cart3.png";
-	document.getElementById('numberitems').innerHTML="";
-	var inner="";
-	var inners="";
-	var im="0";
-	var price="";
-	var quantity=0;
-	var display="none";
+	var dict = [];
+	get(child(dbref,"products")).then((snapshot) => 
+	{
+		if (snapshot.exists()) 
+		{
+			const data = snapshot.val();
+			const keys = Object.keys(data);
+			let i = 0;
+			let j = 0;
+			let row;
+			while (i < keys.length) 
+			{
+				const key = keys[i];
+				const item = data[key];
+				for(j=0;j<serie.length;j++)
+				{
+					if(serie[j][0]==key)
+					{
+						row={id:key,name:item.name,quantity:serie[j][1],price:item.price,pngExist:item.pngExist};
+						dict.push(row);
+						drivercart = dict.slice();
+					}
+				}
+				i++;
+			}
+			distributeMyRequest();
+		}
+	});
+}
+function distribute(requestid)
+{
+	//document.getElementById("mycart").src ="png/cart3.png";
 	var page=document.getElementById("page");
 	if(page!=null)
 	{
-		get(child(dbref,"products")).then((snapshot) => 
+		get(child(dbref,"requests")).then((snapshot) => 
 		{
 			if (snapshot.exists()) 
 			{
 				const data = snapshot.val();
 				const keys = Object.keys(data);
+				let series="";
 				let i = 0;
+
 				while (i < keys.length) 
 				{
 					const key = keys[i];
 					const item = data[key];
-					if(cat==item.category||cat=="الكل")
+					if(requestid==key)
 					{
-						if(item.pngExist>0)im=""+key;
-						if(item.price>=1000)price=numberComma(item.price)+" L.L.";
-						else price=item.price+" $";
-						quantity=getItemQuantity(item.name);
-						if(quantity>0)display="block";
-						else display="none";
-						inner="<article class=\"product-card\"><a href=\"javascript:addProductToCart('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"></a><a href=\"javascript:addProductToCart('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img id=\"cart"+item.name+"\" class=\"cart\" style=\"display:"+display+"\"src=\"png/cart2.png\"></a><a href=\"javascript:plus('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a href=\"javascript:remove('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\">"+item.name+"</p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
-						inners+=inner;
+						series=""+item.cart;
+						localStorage.setItem('address',item.address);
+						localStorage.setItem('state',item.state);
 					}
 					
 					i++;
 				}
-				page.innerHTML=inners;
+				let data2=[];
+				if(series!=null&&series.length>0)
+				{
+					let prod= series.split(";");
+					for(i=0;i<prod.length-1;i++)
+					{
+						data2[i]=prod[i].split(":");
+					}
+					loadCart(data2);
+				}
 			} 
 			else 
 			{
@@ -134,35 +182,49 @@ function distribute(cat)
 		});
 	}
 }
-function distributeMyCart()
+function distributeMyRequest()
 {
-	if(mycart!=null)
+	if(drivercart!=null)
 	{
-		saveCategory("");
-		loadDictionary();
-		document.getElementById("mycart").src ="png/cart4.png";
-		document.getElementById('numberitems').innerHTML="";
+		var deliver1="";
+		var deliver2="";
+		var deliver3="";
+		if(localStorage.getItem('state')=="1")
+		{
+			deliver1="deliver12";
+			deliver2="deliver2";
+			deliver3="deliver3";
+		}
+		else if(localStorage.getItem('state')=="0")
+		{
+			deliver1="deliver1";
+			deliver2="deliver22";
+			deliver3="deliver3";
+		}
+		else if(localStorage.getItem('state')=="2")
+		{
+			deliver1="deliver1";
+			deliver2="deliver2";
+			deliver3="deliver32";
+		}
 		var inner="";
-		var inners="";
+		var inners="<button id='total_bill'class='total_bill'><b>مجموع الفاتورة "+numberComma(updateTotal2())+" ل.ل</b></button><button id='deliver1'class='"+deliver1+"'><b>تمّ التسليم</b></button><button id='deliver2'class='"+deliver2+"'><b>لم يتمّ التسليم</b></button><button id='deliver3'class='"+deliver3+"'><b>ملغاة</b></button><button id='address_bill'class='address_bill'><b>"+localStorage.getItem('address')+"</b></button>";
 		var im="0";
 		var price="";
 		var quantity=0;
 		var display="none";
 		var page=document.getElementById("page");
-		if(page!=null&&mycart!=null)
+		if(page!=null&&drivercart!=null)
 		{
-			for (let i = 0; i < mycart.length; i++) 
+			for (let i = 0; i < drivercart.length; i++) 
 			{
-				const item= mycart[i];
+				const item= drivercart[i];
 				
 				if(item.pngExist>0)im=""+item.id;
 				else im="0";
 				if(item.price>=1000)price=numberComma(item.price)+" L.L.";
 				else price=item.price+" $";
-				quantity=getItemQuantity(item.name);
-				if(quantity>0)display="block";
-				else display="none";
-				inner="<article class=\"product-card\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"><a href=\"javascript:plus2('"+item.id+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus2('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a  href=\"javascript:remove2('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\">"+item.name+"</p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
+				inner="<article class=\"product-card\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"><p id=\"quantity"+item.name+"\"class=\"quantity\">"+item.quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\">"+item.name+"</p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
 				inners+=inner;
 			}
 			page.innerHTML=inners;
@@ -195,6 +257,7 @@ function loginDriver()
 						localStorage.setItem('drivername',item.drivername);
 						document.getElementById("drivername").innerHTML=item.drivername;
 						loadRequests();
+						document.getElementById("page").innerHTML="";
 					}
 					i++;
 				}
@@ -218,6 +281,8 @@ function loginDriver()
 }
 document.addEventListener('DOMContentLoaded', () => 
 {
+	const page= document.getElementById('page');
+	const categoryUL = document.getElementById('request_section');
 	const login_btn = document.getElementById('driver-login');
 	const logout_btn = document.getElementById('driver-logout');
 	const login_form = document.getElementById('login_form');
@@ -225,6 +290,69 @@ document.addEventListener('DOMContentLoaded', () =>
 	{
 		loginDriver();
 	});
+	if(categoryUL!=null)
+	{
+		categoryUL.addEventListener('click', (event) => 
+		{
+			// Check if the clicked element (event.target) or one of its parents is a `.block`
+			const clickedCategory = event.target.closest('a');
+
+			if (clickedCategory) 
+			{
+				event.preventDefault(); 
+				const requestid = clickedCategory.getAttribute('id');
+				localStorage.setItem('request',requestid);
+				distribute(requestid);
+			}
+		});
+	}
+	if(page!=null)
+	{
+		page.addEventListener('click', (event) => 
+		{
+			// Check if the clicked element (event.target) or one of its parents is a `.block`
+			const clickedButton = event.target.closest('button');
+
+			if (clickedButton) 
+			{
+				event.preventDefault(); 
+				const button = clickedButton.getAttribute('id');
+				if(button=="deliver1")
+				{
+					var deliver1=document.getElementById("deliver1").className;
+					if(deliver1!="deliver12")
+					{
+						document.getElementById("deliver1").className = "deliver12";
+						document.getElementById("deliver2").className = "deliver2";
+						document.getElementById("deliver3").className = "deliver3";
+						updateRequestState(localStorage.getItem('request'),"1");
+					}
+				}	
+				else if(button=="deliver2")
+				{
+					var deliver2=document.getElementById("deliver2").className;
+					if(deliver2!="deliver22")
+					{
+						document.getElementById("deliver1").className = "deliver1";
+						document.getElementById("deliver2").className = "deliver22";
+						document.getElementById("deliver3").className = "deliver3";
+						updateRequestState(localStorage.getItem('request'),"0");
+					}
+				}	
+				else if(button=="deliver3")
+				{
+					var deliver3=document.getElementById("deliver3").className;
+					if(deliver3!="deliver32")
+					{
+						document.getElementById("deliver1").className = "deliver1";
+						document.getElementById("deliver2").className = "deliver2";
+						document.getElementById("deliver3").className = "deliver32";
+						updateRequestState(localStorage.getItem('request'),"2");
+					}
+				}	
+			}
+		});
+	}
 	if(login_btn!=null)
 	{
 		login_btn.addEventListener('click', (event) => 
@@ -244,6 +372,7 @@ document.addEventListener('DOMContentLoaded', () =>
 			localStorage.setItem('drivername',"");
 			document.getElementById("drivername").innerHTML="";
 			document.getElementById("request_section").innerHTML="";
+			document.getElementById("page").innerHTML="";
 		});
 	}
 });

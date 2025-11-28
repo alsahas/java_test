@@ -3,6 +3,11 @@ let mycart =
 /*  { name: 'product7',quantity:1, price: 40000 },
   { name: 'product8',quantity:2, price: 45000 }*/
 ];
+let drivercart =
+[
+/*  { name: 'product7',quantity:1, price: 40000 },
+  { name: 'product8',quantity:2, price: 45000 }*/
+];
 function showForm()
 {
 	document.getElementById("myForm").style.display="block";
@@ -24,7 +29,7 @@ function hideForm()
 {
 	document.getElementById("myForm").style.display="none";
 }
-function hideForm()
+function hideForm2()
 {
 	document.getElementById("myForm").style.display="none";
 	document.getElementById("driver-login").style.display="block";
@@ -280,6 +285,19 @@ function updateTotal()
 		else if(mycart.length>9)items.style.marginLeft="-3.55vw";
 		else items.style.marginLeft="-3vw";
 		saveDictionary();
+		return Math.round(total / 10000) * 10000;
+	}
+}
+function updateTotal2()
+{
+	if(drivercart!=null)
+	{
+		let total=0;
+		for (let i = 0; i < drivercart.length; i++) 
+		{
+			if(drivercart[i].price>1000)total+=drivercart[i].price*drivercart[i].quantity;
+			else total+=parseInt(90000*(drivercart[i].price)*(drivercart[i].quantity));
+		}
 		return Math.round(total / 10000) * 10000;
 	}
 }

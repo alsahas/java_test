@@ -272,8 +272,8 @@ div#details
 {
 	color:WHITE;
 	position:relative;
-	margin-left:-3vw;
-	padding-top:-2vw;
+	left:0.3vw;
+	top:-0.3vw;
 }
 .emptycart 
 {

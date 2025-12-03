@@ -114,7 +114,7 @@ function distribute(cat)
 					if(cat==item.category||cat=="الكل")
 					{
 						if(item.pngExist>0)im=""+key;
-						if(item.price>=1000)price=numberComma(item.price)+" L.L.";
+						if(item.price>=1000)price=numberComma(parseInt(item.price))+" L.L.";
 						else price=item.price+" $";
 						quantity=getItemQuantity(item.name);
 						if(quantity>0)display="block";

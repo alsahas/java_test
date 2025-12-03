@@ -115,7 +115,6 @@
     overflow: hidden;         /* Hides any text that goes outside the p tag's box */
     text-overflow: ellipsis;  /* Adds "..." to the end of hidden text */
 	}
-
     .productprice
 	{
 		position:relative;
@@ -124,7 +123,7 @@
 		transition: .6s ease;
 		text-align: center;
 		opacity: 1;
-		font-size: clamp(0.5rem, 2.3vw, 3.2rem);
+		font-size: clamp(0.5rem, 1.9vw, 3rem);
 		font-weight:700;
 		margin-top:-1.1vw;
 	}
@@ -174,6 +173,4 @@
     /* responsive tweaks */
     @media (max-width:420px){
       :root{ --max-width: 100%; }
-
     }
-

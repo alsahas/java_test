@@ -97,18 +97,25 @@
 		text-align: center;
 		opacity: 1;
 	}
-    .productname
+    .productname 
 	{
-		position:relative;
-		background: rgba(0, 0, 0, 0.5); /* Black see-through */
-		color: #f1f1f1; 
-		transition: .6s ease;
-		text-align: center;
-		opacity: 1;
-		font-size: clamp(0.5rem, 2vw, 3rem);
-		font-weight:600;
-		margin-top:-1vw;
+    position: relative;
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    color: #f1f1f1;
+    transition: .6s ease;
+    text-align: center;
+    opacity: 1;
+    /* Keeps the font size responsive but within bounds */
+    font-size: clamp(0.5rem, 2vw, 3rem); 
+    font-weight: 600;
+    margin-top: -1vw;
+
+    /* --- Additions to handle overflow: --- */
+    white-space: nowrap;      /* Prevents text from wrapping to the next line */
+    overflow: hidden;         /* Hides any text that goes outside the p tag's box */
+    text-overflow: ellipsis;  /* Adds "..." to the end of hidden text */
 	}
+
     .productprice
 	{
 		position:relative;
@@ -167,4 +174,5 @@
     /* responsive tweaks */
     @media (max-width:420px){
       :root{ --max-width: 100%; }
+
     }

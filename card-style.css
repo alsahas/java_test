@@ -109,11 +109,33 @@
     font-size: clamp(0.5rem, 2vw, 3rem); 
     font-weight: 600;
     margin-top: -1vw;
-
+	
+    box-sizing: border-box;   /* Ensures padding/border are included in width calculation */
+    width: 100%;   
     /* --- Additions to handle overflow: --- */
     white-space: nowrap;      /* Prevents text from wrapping to the next line */
     overflow: hidden;         /* Hides any text that goes outside the p tag's box */
     text-overflow: ellipsis;  /* Adds "..." to the end of hidden text */
+	}
+	.marquee-text-content 
+	{
+	    display: inline-block;
+	    /* Apply the animation defined below */
+	    animation: scrollingText 10s linear infinite; /* Adjust '10s' for speed */
+	    padding-left: 100%; /* Start the text completely off-screen on the right */
+	}
+
+	/* Keyframes define the start and end points of the animation */
+	@keyframes scrollingText 
+	{
+	    0% {
+	        /* Start position: fully off-screen right */
+	        transform: translateX(0); 
+	    }
+	    100% {
+	        /* End position: move left by 100% of its own width */
+	        transform: translateX(-100%); 
+	    }
 	}
     .productprice
 	{

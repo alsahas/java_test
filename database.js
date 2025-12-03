@@ -157,6 +157,7 @@ export function distributeAll()
 	var price="";
 	var quantity=0;
 	var display="none";
+	var dynamic_class="";
 	var page=document.getElementById("page");
 	if(page!=null)
 	{
@@ -180,7 +181,9 @@ export function distributeAll()
 						quantity=getItemQuantity(item.name);
 						if(quantity>0)display="block";
 						else display="none";
-						inner="<article class=\"product-card\"><a href=\"javascript:addProductToCart('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"></a><a href=\"javascript:addProductToCart('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img id=\"cart"+item.name+"\" class=\"cart\" style=\"display:"+display+"\"src=\"png/cart2.png\"></a><a href=\"javascript:plus('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a href=\"javascript:remove('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\">"+item.name+"</p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
+						if(item.name.length>20)dynamic_class="is-scrolling";
+						else dynamic_class="text-content";
+						inner="<article class=\"product-card\"><a href=\"javascript:addProductToCart('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"></a><a href=\"javascript:addProductToCart('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img id=\"cart"+item.name+"\" class=\"cart\" style=\"display:"+display+"\"src=\"png/cart2.png\"></a><a href=\"javascript:plus('"+key+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a href=\"javascript:remove('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\"><span class=\""+dynamic_class+"\">"+item.name+"</span></p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
 						inners+=inner;
 					}
 					
@@ -212,6 +215,7 @@ function distributeMyCart()
 		var price="";
 		var quantity=0;
 		var display="none";
+		var dynamic_class="";
 		var page=document.getElementById("page");
 		if(page!=null&&mycart!=null)
 		{
@@ -226,7 +230,9 @@ function distributeMyCart()
 				quantity=getItemQuantity(item.name);
 				if(quantity>0)display="block";
 				else display="none";
-				inner="<article class=\"product-card\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"><a href=\"javascript:plus2('"+item.id+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus2('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a  href=\"javascript:remove2('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\">"+item.name+"</p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
+				if(item.name.length>20)dynamic_class="is-scrolling";
+				else dynamic_class="text-content";
+				inner="<article class=\"product-card\"><img class=\"prod-image\"src=\"png/products/"+im+".png\"><a href=\"javascript:plus2('"+item.id+"','"+item.name+"',"+item.price+","+item.pngExist+");\"><img class=\"plus\" src=\"png/plus.png\"></a><a href=\"javascript:minus2('"+item.name+"');\"><img class=\"minus\" src=\"png/minus.png\"></a><a  href=\"javascript:remove2('"+item.name+"');\"><img class=\"remove\" src=\"png/delete.png\"></a><p id=\"quantity"+item.name+"\"class=\"quantity\">"+quantity+"</p><p id=\"product"+item.name+"\"class=\"productname\"><span class=\""+dynamic_class+"\">"+item.name+"</span></p><p id=\"price"+item.name+"\"class=\"productprice\">"+price+"</p></article>";
 				inners+=inner;
 			}
 			page.innerHTML=inners;

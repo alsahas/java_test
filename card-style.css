@@ -124,19 +124,25 @@
 	.is-scrolling 
 	{
 	    display: inline-block;
-	    animation: scrollingText 4s linear infinite;
+	    animation: scrollingText 9s linear infinite;
 	}
 	/* Keyframes define the start and end points of the animation */
 	@keyframes scrollingText 
 	{
 	    0% {
-	        /* Start position: fully off-screen right */
-	        transform: translateX(0); 
-	    }
-	    100% {
-	        /* End position: move left by 100% of its own width */
-	        transform: translateX(-100%); 
-	    }
+        transform: translateX(-100%);
+    }
+    
+    /* Stage 2: Slide in fully and pause for a moment in the middle of the timeline */
+    50% {
+        transform: translateX(30%);
+    }
+    
+    /* Stage 3: Slide further left until only the END of the word is visible */
+    100% {
+        /* This moves the entire width of the container to the left */
+        transform: translateX(-80%); 
+    }
 	}
     .productprice
 	{

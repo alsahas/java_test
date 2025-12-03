@@ -279,13 +279,36 @@ function loginDriver()
 		});
 	}
 }
+function setActiveCategory(clickedElement) 
+{
+    // We get the parent UL dynamically if the function is called this way
+    const categoryList = document.getElementById('category');
+    const currentlyActive = categoryList.querySelector('.active');
+
+    if (currentlyActive) 
+	{
+        currentlyActive.classList.remove('active');
+    }
+    
+    // Add the active class to the element that was actually clicked
+    clickedElement.classList.add('active');
+}
+
 document.addEventListener('DOMContentLoaded', () => 
 {
 	const page= document.getElementById('page');
+	const myform= document.getElementById('myForm');
 	const categoryUL = document.getElementById('request_section');
 	const login_btn = document.getElementById('driver-login');
 	const logout_btn = document.getElementById('driver-logout');
 	const login_form = document.getElementById('login_form');
+	myform.addEventListener("keyup", function(event) 
+	{
+        if (event.key === "Enter") 
+		{
+			loginDriver();
+        }
+    });
 	login_form.addEventListener('click', (event) => 
 	{
 		loginDriver();
@@ -375,5 +398,30 @@ document.addEventListener('DOMContentLoaded', () =>
 			document.getElementById("page").innerHTML="";
 		});
 	}
+});
+document.addEventListener('DOMContentLoaded', (event) => 
+{
+    // Select the existing parent container (the <ul>)
+    const categoryUL = document.getElementById('request_section');
+
+    // Add a single click listener to the parent UL
+    categoryUL.addEventListener('click', function(e) 
+	{
+        // e.target is the specific element that was clicked (could be the <a> or the <li> itself)
+        
+        // We need to find the nearest <li> parent of the element that was clicked
+        // This handles cases where the user clicks directly on the link text (<a> tag)
+        const clickedLI = e.target.closest('a');
+
+        // Check if a valid LI was found and it is actually inside our UL
+        if (clickedLI && categoryUL.contains(clickedLI)) 
+		{
+            // Prevent the default link behavior
+            e.preventDefault(); 
+            
+            // Call our function using the found LI element
+            setActiveCategory(clickedLI);
+        }
+    });
 });
 document.addEventListener('DOMContentLoaded',loadRequests);

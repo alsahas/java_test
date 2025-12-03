@@ -117,14 +117,15 @@
     overflow: hidden;         /* Hides any text that goes outside the p tag's box */
     text-overflow: ellipsis;  /* Adds "..." to the end of hidden text */
 	}
-	.marquee-text-content 
+	.text-content
 	{
 	    display: inline-block;
-	    /* Apply the animation defined below */
-	    animation: scrollingText 10s linear infinite; /* Adjust '10s' for speed */
-	    padding-left: 100%; /* Start the text completely off-screen on the right */
 	}
-
+	.is-scrolling 
+	{
+	    display: inline-block;
+	    animation: scrollingText 4s linear infinite;
+	}
 	/* Keyframes define the start and end points of the animation */
 	@keyframes scrollingText 
 	{
